@@ -1,0 +1,17 @@
+GET http://localhost:3000/
+
+###
+
+GET http://localhost:3000/users
+
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "name": "Fulana sa Silva",
+    "age": 29,
+    "email": "fulanasilva@example.com"
+}
+
