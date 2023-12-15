@@ -25,7 +25,20 @@ app.get("/users", (req: Request, res: Response) => {
     res.json(users);
 });
 
+// app.post("/users", (req: Request, res: Response) => {
+//     const newUser = {
+//         id: users.length + 1,
+//         name: req.body.name,
+//         age: req.body.age,
+//         email: req.body.email,
+//     };
+
+//     users.push(newUser);
+//     res.status(201).json(newUser);
+// });
+
 app.post("/users", (req: Request, res: Response) => {
+    // const newUser = req.body;
     const newUser = {
         id: users.length + 1,
         name: req.body.name,
@@ -36,6 +49,8 @@ app.post("/users", (req: Request, res: Response) => {
     users.push(newUser);
     res.status(201).json(newUser);
 });
+
+
 
 
 // Inicia o servidor na porta 3000
