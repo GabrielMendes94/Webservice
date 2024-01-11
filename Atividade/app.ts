@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 // Cria uma instância do express
 const app = express();
 
+// Adiciona o middleware BodyParser para processar dados do corpo da solicitação
 app.use(bodyParser.json());
 
 let users = [
@@ -12,11 +13,7 @@ let users = [
     { id: 2, name: "Maria Silva", age: 31, email: "maria.silva@example.com"},
 ];
 
-// Inicia o servidor na porta 3000
 const porta = 3000;
-app.listen(porta, () => {
-    console.log(`Servidor rodando em http://localhost:${porta}`);
-});
 
 // Configura uma rota básica
 app.get("/", (req: Request, res: Response) => {
@@ -54,13 +51,24 @@ app.post("/users", (req: Request, res: Response) => {
     } else {
         res.status(400).json({ mensagem: 'Dados inválidos para adicionar usuário' });
     }
-    // const newUser = {
-    //     id: users.length + 1,
-    //     name: req.body.name,
-    //     age: req.body.age,
-    //     email: req.body.email,
-    // };
+});
 
-    // users.push(newUser);
-    // res.status(201).json(newUser);
+// Rota para saudação personalizada
+app.get('/saudacao/:nome', (req, res) => {
+    const nome = req.params.nome;
+    res.json({ mensagem: `Olá, ${nome}! Bem-vindo ao meu web service!`});
+});
+
+// Rota para lidar com o erro 404
+app.use((req, res) => {
+    res.status(404).json({ mensagem: 'Erro 404 - Página não encontrada' });
+});
+
+// Iniciando o servidor
+app.listen(porta, () => {
+    console.log(`Servidor rodando em http://localhost:${porta}`);
+    console.log(`Para listar todos os usuários: http://localhost:${porta}/users`);
+    console.log(`Para obter detalhes de um usuário: http://localhost:${porta}/users/{id}`);
+    console.log(`Para adicionar um novo usuário: http://localhost:${porta}/users (método POST)`);
+    console.log(`Para uma saudação personalizada: http://localhost:${porta}/saudacao/{seuNome}`);
 });
